@@ -17,24 +17,24 @@ def predict_price(area) -> float:
     """
     response = requests.get(TRAIN_DATA_URL)
     # YOUR IMPLEMENTATION HERE
+    import pandas as pd
+    import numpy as np
     train = pd.read_csv("linreg_train.csv", header=None)
-	train = train.transpose()
-	X = train.iloc[1:,0].values
-	y = train.iloc[1:,1].values
-	X = X.reshape(-1,1)
-	y = y.reshape(-1,1)
-
-
+    train = train.transpose()
+    X = train.iloc[1:,0].values
+    y = train.iloc[1:,1].values
+    X = X.reshape(-1,1)
+    y = y.reshape(-1,1)
     from sklearn.preprocessing import PolynomialFeatures
-	poly_reg = PolynomialFeatures(degree = 2)
-	X_poly = poly_reg.fit_transform(X)
-	poly_reg.fit(X_poly, y)
-	from sklearn.linear_model import LinearRegression
-	regressor = LinearRegression()
-	regressor.fit(X_poly, y)
-	X_poly = poly_reg.fit_transform(X)
-	y_pred = regressor.predict(X_poly)
-	return y_pred
+    poly_reg = PolynomialFeatures(degree = 2)
+    X_poly = poly_reg.fit_transform(X)
+    poly_reg.fit(X_poly, y)
+    from sklearn.linear_model import LinearRegression
+    regressor = LinearRegression()
+    regressor.fit(X_poly, y)
+    X_poly = poly_reg.fit_transform(X)
+    y_pred = regressor.predict(X_poly)
+    return y_pred
 
 
 if __name__ == "__main__":
